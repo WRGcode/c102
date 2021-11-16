@@ -1,0 +1,200 @@
+//this is a short cut to cneter any block element
+
+@mixin center-auto {
+    margin: {
+left: auto;
+right: auto;
+    }
+}
+//div{
+//     @include center-auto()
+// }
+
+//simple way to define a box
+@mixin box($width, $height:$width){
+    width: $width;
+    height: $height;
+}
+//
+
+@mixin cover-background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+// div{
+    // background-image: url(this.jpg);
+    // @include cover-background()
+// }
+
+// flexbox toolbox
+@mixin flex-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-center-column {
+    @include flex-column();
+    flex-direction: column;
+}
+
+@mixin pseodo($width:100%, $height:100%, $display:block, $pos: absolute, $content: "") {
+    content: $content;
+    display: $display;
+    position: $pos;
+    @include box($width, $height)
+}
+// div{
+//     position: relative;
+//     width: 200px;
+//     height: 200px;
+//     &::after(
+//         @include pseudo();
+//         background: linear-gradient()
+//     )
+// }
+
+//positioning helpers
+
+@mixin position($position, $args) {
+    @each $pos in top right bottom left {
+        $i: index($args , $pos );
+        @if $i and $i+1 <= length($args) and type-of(nth($args, $i + 1)){
+            #{$pos}: nth($args , $i + 1 )
+        }
+    }
+    position: $possition;
+}
+
+@mixin absolute($arge: " ") {
+    @include position(absolute,$args )
+}
+@mixin fixed($arge: " ") {
+    @include position(fixed,$args )
+}
+@mixin relative($arge: " ") {
+    @include relative(fixed,$args )
+}
+// .meru li{
+//     @include absolute(top 100% left 0)
+// }
+// .sticky-bar{
+//     @include fixed( top 0 left 0)
+// }
+// .submenu{
+//     @include relative()
+// }
+$phone-wide : 480px;
+$phoblet : 560px;
+$tablet-small : 640px;
+$tablet : 768px;
+$large : 1024px;
+$desktop : 1280px;
+$desktop-wide : 1440px;
+
+@mixin tablet {
+    @media only screen and (min-width: $tablet){
+        @content
+    }
+}
+// div{
+//     font-size:  3rem;
+//     @include table(){
+//         font-size: 2rem;
+//     }
+// }
+
+@mixin fade($type) {
+    @if $type == "hide"{
+        visibility: hidden;
+        opacity: 0;
+        transition: $transiton;
+    }@else if $type == 'show'{
+        visibility: visible;
+        opacity: 1;
+        transition: $transiton;
+    }
+}
+
+//input place holder color
+@mixin input-placeholder {
+    &.placeholder{
+        @content;
+    }
+    &:-moz-placeholder{
+        @content;
+    }
+    &::-moz-input-placeholder{
+        @content;
+    }
+    &:-ms-input-placeholder{
+        @content;
+    }
+    &::-webkit-input-placeholder{
+        @content;
+    }
+}
+
+@mixin font-face($font-name, $file-name, $height: normal, $style: normal) {
+    @font-face{
+        font-family: quote($font-name);
+        src: url($file-name + ".eot");
+        src: url($file-name + ".eot?#iefix") format("embedded-opentype"),
+        url($file-name + 'woff') format("woff"),
+        url($file-name + 'ttf') format("ttf"),
+        url($file-name + 'svg') format("svg");
+        font-weight: $width;
+        font-style: $style;
+    }
+}
+// form{
+//     @include font-face("MyFont", './base/typegrahy/myfont.ttd',$style:underline )
+// }
+
+@mixin text-short {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// css triangles
+
+@mixin css-triange(
+$color,
+$direction,
+$size: 6px,
+$position: absolute,
+$round: false
+) {
+    @include pseudo($pos, $position);
+    width: 0;
+    height: 0;
+    @if $round{
+        border-radius: 3px;
+    }
+    @if $direction == down{
+        border-left: $size solid transparent;
+        border-right:  $size solid transparent;
+        border-top: $size solid transparent;
+        border-top: 0 - round($size / 2.5);
+    }
+    @else if $direction == up{
+        border-left: $size solid transparent;
+        border-right:  $size solid transparent;
+        border-bottom: $size solid ;
+        border-bottom: 0 - round($size / 2.5);
+    }
+    @else if $direction == right{
+        border-top: $size solid transparent;
+        border-bottom:  $size solid transparent;
+        border-left: $size solid transparent;
+        border-right: -$size;
+    }
+    @else if $direction == left{
+        border-top: $size solid transparent;
+        border-botton:  $size solid transparent;
+        border-right: $size solid $color;
+        border-left: -$size;
+    }
+}
