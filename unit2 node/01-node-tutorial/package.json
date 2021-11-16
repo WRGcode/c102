@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "-": "^0.0.1",
+    "D": "^1.0.0",
+    "nodemon": "^2.0.13"
+  },
+  "scripts": {
+    "start": "nodemon"
+  }
+}
