@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <form action="" class="form file-form">
+
+        <div class="form-row">
+            <label for="name">name</label>
+            <input id="name" type="text" class="form-input" value="stock">
+        </div>
+
+        <div class="form-row">
+            <label for="price">price</label>
+            <input id="price" type="text" class="form-input" value="68.99">
+        </div>
+
+        <div class="form-row">
+            <label for="image">image</label>
+            <input id="image" type="file" class="form-input" accept="image/*">
+        </div>
+
+        <button type="submit">Add Product</button>
+
+    </form>
+
+    <section class="container"></section>
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    ></script>
+
+
+    <script src="./script.js"></script>
+</body>
+</html>

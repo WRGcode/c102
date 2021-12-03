@@ -40,20 +40,17 @@ const getAllProducts = async (req, res) => {
     //filters=price>=30,rating>3
     let newFilters = filters.replace(re, (match) => `-${operatorMap[match]}-`);
     //filters=price-$gte-30,rating-$gt-3
-
+    // const options = ["price", "rating"];
     newFilters.split(",").forEach((item) => {
       const [field, operator, value] = item.split("-");
-      //field = price, operator = $gte,value = 30
+      //field = price
+      //operator = $gte
+      //value = 30
       if (options.includes(field)) {
         queryObject[field] = { [operator]: Number(value) };
       }
+      // {price: { $gte: 30 } }
     });
-
-    // {
-    //   price: {
-    //     $gte: 30;
-    //   }
-    // }
   }
 
   let results = Product.find(queryObject);
