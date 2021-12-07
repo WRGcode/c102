@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const sendEmail = require('./controller/sendEmail')
+const resetEmail = require('./controller/resetEmail')
 
 app
     .use(express.json())
@@ -11,7 +12,7 @@ app
     })
 
     .get('/send', sendEmail)
-    .get('/reset')
+    .get('/reset', resetEmail)
 
 const port = process.env.PORT || 3000
 

@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <title>Stripe payment</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <section class="section section-center content">
+        <form id="payment-form">
+            <p>test card number: 4242 4242 4242 4242</p>
+            <!--  -->
+            <div id="card-element">
+                <!-- stript.js automatically injects html here -->
+            </div>
+            <button type="submit" is="submit">
+                <div class="spinner hidden" id="spinner"></div>
+                <span id="button-text">pay</span>
+            </button>
+            <p id="card-error" role="alert"></p>
+            <p class="result-message hidden">
+                payment succeeded, see the result in your
+                <a href="https://dashboard.stripe.com/dashboard" target="_blank">Stript dashboard</a>
+                refresh the page to pay again
+            </p>
+        </form>
+    </section>
+    <script src="main.js"></script>
+</body>
+
+</html>

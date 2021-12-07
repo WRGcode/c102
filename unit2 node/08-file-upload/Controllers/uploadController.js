@@ -1,19 +1,22 @@
 const path = require('path')
+const cloudinary = require('cloudinary').v2
+const fs = require('fs')
 
-const uploadProductImage = async (req, res) => {
-    
-    if (!req.files){
-        throw new Error('no file added')
+const olduploadProductImage = async (req, res) => {
+
+    if (!req.files) {
+        console.log('no file added')
     }
     const productImage = req.files.image
-    
-    if(!productImage.minetype.startsWith('image')) {
-        throw new Error('choose an image ONLY!')
-    }
+    console.log(productImage + 'IMAGE');
+
+    // if (!productImage.minetype.startsWith('image')) {
+    //     console.log('choose an image ONLY!')
+    // }
 
     const maxSize = 1024 * 1024;
-    if (productImage.size > maxSize){
-        throw new Error('image to big')
+    if (productImage.size > maxSize) {
+        console.log('image to big')
     }
 
     const imagePath = path.join(
@@ -21,14 +24,22 @@ const uploadProductImage = async (req, res) => {
         "../public/uploads/",
         productImage.name
 
-        )
-        await productImage.mv(imagePath)
+    )
+    await productImage.mv(imagePath)
 
-        res.status(200).json({image: { src: `/uploads/${productImage.name}`}})
+    res.status(200).json({ image: { src: `/uploads/${productImage.name}` } })
 
-res.send("uploadProductImage")
+    // res.send("uploadProductImage")
 }
 
-module.exports = {
-    uploadProductImage,
+const uploadProductImage = async (req, res) => {
+    const response = await cloudinary.uploader.upload(req.files.image.tempFilePath,
+        {
+            use_filename: true,
+            folder: "file-upload"
+        })
+    fs.unlinkSync(req.files.image.tempFilePath);
+    return res.status(200).json({ image: { src: response.secure_url } })
 }
+
+module.exports = uploadProductImage
