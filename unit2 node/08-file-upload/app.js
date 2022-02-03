@@ -19,7 +19,7 @@ cloudinary.config({
 const notFoundMiddlewere = require("./Middleware/Not-found")
 const errorMiddlewere = require("./Middleware/Error-handler");
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 app.use(express.json())
 app.use(fileUpload({useTempFiles: true}))
 
